@@ -73,7 +73,7 @@ const ProductDetail = ({ params }: { params: { slug: string[] } }) => {
       }
     };
 
-    fetchProduct();
+    //fetchProduct();
   }, []);
 
   return (

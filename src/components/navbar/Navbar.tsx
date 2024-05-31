@@ -3,14 +3,16 @@ import React, { useState } from "react";
 import { BsPerson, BsHeart, BsSearch, BsCart } from "react-icons/bs";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { RootState } from "@/app/redux/store";
+import { RootState, useAppSelector } from "@/app/redux/store";
 import { useRouter } from "next/navigation";
 import NavbarLinks from "./Links";
 import SearchResults from "./SearchResults";
+import { BiSolidUser } from "react-icons/bi";
 
 const Navbar = () => {
   const count = useSelector((state: RootState) => state.addToCartSlice.length);
   const router = useRouter();
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
 
@@ -52,10 +54,21 @@ const Navbar = () => {
             </div>
           </div>
           <div className="w-1/3 flex justify-evenly items-center">
-            <button className="inline-flex hover:text-purple-500 hover:font-semibold">
-              <BsPerson />
-              <span className="text-xs ms-2">Giris</span>
-            </button>
+            {user ? (
+              <button className="inline-flex hover:text-purple-500 hover:font-semibold">
+                <BiSolidUser />
+                <span className="text-xs ms-2">Hesabim</span>
+              </button>
+            ) : (
+              <button
+                className="inline-flex hover:text-purple-500 hover:font-semibold"
+                onClick={() => router.push("/login")}
+              >
+                <BsPerson />
+                <span className="text-xs ms-2">Giris</span>
+              </button>
+            )}
+
             <button className="inline-flex hover:text-purple-500 hover:font-semibold">
               <BsHeart />
               <span className="text-xs ms-2">Favoriler</span>

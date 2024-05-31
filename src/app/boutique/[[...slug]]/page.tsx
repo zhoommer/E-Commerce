@@ -22,25 +22,25 @@ const Boutique = ({ params }: { params: { slug: string[] } }) => {
   }, []);
 
   const fetchProducts = async () => {
-    try {
-      const response = await axios.get<ProductTypes[]>(
-        "http://localhost:3000/products",
-      );
-      const popularProd = response.data.filter(
-        (item) => item.pageCategory === "popular-products",
-      );
-      const bestSellingProd = response.data.filter(
-        (item) => item.pageCategory === "best-selling",
-      );
-      const advantageProd = response.data.filter(
-        (item) => item.pageCategory === "advantageous-products",
-      );
-      setPopularProducts(popularProd);
-      setBestSellingProducts(bestSellingProd);
-      setAdvantageProducts(advantageProd);
-    } catch (error) {
-      console.log(error);
-    }
+    //try {
+    //  const response = await axios.get<ProductTypes[]>(
+    //    "http://localhost:3000/products",
+    //  );
+    //  const popularProd = response.data.filter(
+    //    (item) => item.pageCategory === "popular-products",
+    //  );
+    //  const bestSellingProd = response.data.filter(
+    //    (item) => item.pageCategory === "best-selling",
+    //  );
+    //  const advantageProd = response.data.filter(
+    //    (item) => item.pageCategory === "advantageous-products",
+    //  );
+    //  setPopularProducts(popularProd);
+    //  setBestSellingProducts(bestSellingProd);
+    //  setAdvantageProducts(advantageProd);
+    //} catch (error) {
+    //  console.log(error);
+    //}
   };
   if (parseInt(params.slug[1]) === 1) {
     return (
