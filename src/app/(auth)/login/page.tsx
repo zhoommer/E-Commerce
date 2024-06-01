@@ -59,6 +59,13 @@ const Login = () => {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
 
+  // register page states
+  const [rmail, setRMail] = useState("");
+  const [rpassword, setRpassword] = useState("");
+  const [gender, setGender] = useState("");
+
+  const [selectedButton, setSelectedButton] = useState<string>("");
+
   const handleSubmit = () => {
     let postData = {
       email: mail,
@@ -85,7 +92,6 @@ const Login = () => {
     setValue(newValue);
   };
 
-  console.log(localStorage.getItem("user"));
   return (
     <>
       <Box
@@ -164,7 +170,83 @@ const Login = () => {
           </div>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          Item Two
+          <div className="border p-3">
+            <div className="flex flex-col mx-auto">
+              <label className="ms-2 mb-2">E-Posta</label>
+              <input
+                type="text"
+                className="border rounded p-3 w-96"
+                placeholder="E-posta adresinizi giriniz"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setRMail(e.target.value);
+                }}
+              />
+            </div>
+            <div>
+              <FormControl variant="outlined" style={{ width: "100%" }}>
+                <label className="ms-2 mb-2 mt-3">Sifre</label>
+                <OutlinedInput
+                  type={showPassword ? "text" : "password"}
+                  size="small"
+                  placeholder="Sifrenizi giriniz"
+                  className="p-1 w-96"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setRpassword(e.target.value);
+                  }}
+                  endAdornment={
+                    <InputAdornment position="end" className="me-3">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <BsEyeFill /> : <BsEyeSlashFill />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+            </div>
+
+            <div className="flex mt-2">
+              <button
+                className={
+                  selectedButton === "kadin"
+                    ? "border border-purple-800 rounded p-3 flex-1"
+                    : "border rounded p-3 flex-1"
+                }
+                onClick={() => {
+                  setSelectedButton("kadin");
+                  setGender("KADIN");
+                }}
+              >
+                Kadin
+              </button>
+              <button
+                className={
+                  selectedButton === "erkek"
+                    ? "border border-purple-800 rounded p-3 flex-1"
+                    : "border rounded p-3 flex-1"
+                }
+                onClick={() => {
+                  setSelectedButton("erkek");
+                  setGender("ERKEK");
+                }}
+              >
+                Erkek
+              </button>
+            </div>
+
+            <div className="flex justify-center mt-4">
+              <button
+                className="border rounded p-3 bg-purple-700 text-white w-96 hover:bg-purple-500"
+                onClick={handleSubmit}
+              >
+                Uye Ol
+              </button>
+            </div>
+          </div>{" "}
         </CustomTabPanel>
       </Box>
     </>

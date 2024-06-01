@@ -10,17 +10,21 @@ import {
   BsPerson,
 } from "react-icons/bs";
 
-const PopoverComp = () => {
-  const [menuDisplay, setMenuDisplay] = useState<HTMLElement | null>(null);
+interface PropType {
+  menuDisplay: boolean;
+}
 
-  const handleOpen = (e: React.MouseEvent<HTMLElement>) => {
-    setMenuDisplay(e.currentTarget);
-  };
+const PopoverComp: React.FC<PropType> = ({ menuDisplay }) => {
+  const open = Boolean(menuDisplay);
   return (
     <>
       <Avatar sx={{ width: 24, height: 24 }} />
 
-      <div className="absolute border rounded top-14 p-3 flex flex-col bg-zinc-50 gap-3">
+      <div
+        className="absolute border rounded top-14 p-3 flex flex-col bg-zinc-50 gap-3"
+        style={{ display: open ? "flex" : "none" }}
+        onMouseEnter={() => menuDisplay === true}
+      >
         <li className="inline-flex items-center hover:bg-purple-300 hover:text-white p-2">
           <span>
             <BsBox />
@@ -57,7 +61,10 @@ const PopoverComp = () => {
           </span>
           <span className="text-xs ms-2">Kullanici Bilgilerim</span>
         </li>
-        <li className="inline-flex items-center hover:bg-purple-300 hover:text-white p-2">
+        <li
+          className="inline-flex items-center hover:bg-purple-300 hover:text-white p-2"
+          onClick={() => localStorage.removeItem("token")}
+        >
           <span>
             <BsDoorClosed />
           </span>

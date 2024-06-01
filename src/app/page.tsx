@@ -19,32 +19,7 @@ export default function Home() {
   const [advantageProducts, setAdvantageProducts] = useState<ProductTypes[]>(
     [],
   );
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const fetchProducts = async () => {
-    try {
-      const response = await axios.get<ProductTypes[]>(
-        "http://localhost:3000/products",
-      );
-      const popularProd = response.data.filter(
-        (item) => item.pageCategory === "popular-products",
-      );
-      const bestSellingProd = response.data.filter(
-        (item) => item.pageCategory === "best-selling",
-      );
-      const advantageProd = response.data.filter(
-        (item) => item.pageCategory === "advantageous-products",
-      );
-      setPopularProducts(popularProd);
-      setBestSellingProducts(bestSellingProd);
-      setAdvantageProducts(advantageProd);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
 
   return (
     <main>

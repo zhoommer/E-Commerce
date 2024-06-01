@@ -11,18 +11,7 @@ import "swiper/css/navigation";
 const SearchResults = () => {
   const [data, setData] = useState<ProductTypes[]>([]);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const response = await axios.get<ProductTypes[]>(
-        "http://localhost:3000/products",
-      );
-      const filteredData = response.data.filter(
-        (item) => item.pageCategory === "popular-products",
-      );
-      setData(filteredData);
-    };
-    fetchProducts();
-  }, []);
+  
 
   return (
     <div>

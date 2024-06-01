@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Links } from "./navbar-links";
 import Link from "next/link";
