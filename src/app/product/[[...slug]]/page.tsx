@@ -54,28 +54,6 @@ const ProductDetail = ({ params }: { params: { slug: string[] } }) => {
     });
   };
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await axios.get<ProductTypes[]>(
-          `http://localhost:3000/products`,
-        );
-        const boutiqueId = searchParams?.get("boutiqueId");
-        const merchantId = searchParams?.get("merchantId");
-
-        const filterData = response.data.filter(
-          (item) =>
-            item.boutiqueId === boutiqueId && item.merchantId === merchantId,
-        );
-        setData(filterData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    //fetchProduct();
-  }, []);
-
   return (
     <div className="grid grid-cols-[3fr_6fr_3fr] gap-10">
       <div className="border rounded">

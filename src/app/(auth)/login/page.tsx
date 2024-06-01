@@ -67,6 +67,7 @@ const Login = () => {
     dispatch(loginFunc(postData)).then((res: any) => {
       if (res.payload.access_token) {
         localStorage.setItem("token", res.payload.access_token);
+        localStorage.setItem("user", res.payload.user);
         router.replace("/");
       }
     });
@@ -83,6 +84,8 @@ const Login = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  console.log(localStorage.getItem("user"));
   return (
     <>
       <Box

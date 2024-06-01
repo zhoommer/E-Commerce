@@ -8,11 +8,12 @@ import { useRouter } from "next/navigation";
 import NavbarLinks from "./Links";
 import SearchResults from "./SearchResults";
 import { BiSolidUser } from "react-icons/bi";
+import PopoverComp from "../popover/PopoverComp";
 
 const Navbar = () => {
   const count = useSelector((state: RootState) => state.addToCartSlice.length);
   const router = useRouter();
-  const user = useSelector((state: RootState) => state.auth.user);
+  const user = localStorage.getItem("token");
 
   const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
 
@@ -55,10 +56,10 @@ const Navbar = () => {
           </div>
           <div className="w-1/3 flex justify-evenly items-center">
             {user ? (
-              <button className="inline-flex hover:text-purple-500 hover:font-semibold">
-                <BiSolidUser />
+              <div className="inline-flex items-center cursor-pointer">
+                <PopoverComp />
                 <span className="text-xs ms-2">Hesabim</span>
-              </button>
+              </div>
             ) : (
               <button
                 className="inline-flex hover:text-purple-500 hover:font-semibold"
