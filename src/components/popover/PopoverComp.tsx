@@ -22,6 +22,7 @@ const PopoverComp: React.FC<PropType> = ({ menuDisplay }) => {
     setLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 3000));
     localStorage.removeItem("token");
+    window.location.reload();
     setLoading(false);
   };
   return (
