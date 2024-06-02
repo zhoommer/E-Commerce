@@ -23,11 +23,6 @@ export const registerFunc = createAsyncThunk(
     const response = await client.post<InitialStateType>(
       "auth/signup",
       postData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
     );
 
     return response.data;

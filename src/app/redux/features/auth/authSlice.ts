@@ -38,11 +38,6 @@ export const loginFunc = createAsyncThunk(
     const response = await client.post<InitialStateType>(
       "auth/signin",
       postData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
     );
 
     return response.data;

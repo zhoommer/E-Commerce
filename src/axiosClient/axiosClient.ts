@@ -8,7 +8,7 @@ const axiosClient = (token: string | null = null): AxiosInstance => {
         "Content-Type": "multipart/form-data",
       }
     : {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
       };
 
   const client = axios.create({
@@ -19,7 +19,7 @@ const axiosClient = (token: string | null = null): AxiosInstance => {
   });
 
   client.interceptors.request.use((config: any) => {
-    const token = localStorage.getItem("ACCESS_TOKEN");
+    const token = localStorage.getItem("token");
     config.headers = config.headers || {};
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -31,7 +31,7 @@ const axiosClient = (token: string | null = null): AxiosInstance => {
     (response: AxiosResponse) => {
       return response;
     },
-    (error: AxiosError) => {
+    (error: AxiosError | any) => {
       try {
         const { response } = error;
         if (response?.status === 401) {
