@@ -16,6 +16,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { useRouter } from "next/navigation";
+import { registerFunc } from "@/app/redux/features/auth/singUpSlice";
+import Swal from "sweetalert2";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -78,6 +80,26 @@ const Login = () => {
         router.replace("/");
       }
     });
+  };
+
+  const handleSignup = async () => {
+    let postData = {
+      email: rmail,
+      gender: gender,
+      passwordHash: rpassword,
+    };
+
+    const response = await dispatch(registerFunc(postData));
+    if (response.payload?.access_token) {
+      Swal.fire({
+        position: "top-right",
+        icon: "success",
+        title: "Uyeliginiz olusturuldu.",
+        text: "Simdi friendyol'un avantajlarindan faydalanabilirsiniz.",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -241,12 +263,12 @@ const Login = () => {
             <div className="flex justify-center mt-4">
               <button
                 className="border rounded p-3 bg-purple-700 text-white w-96 hover:bg-purple-500"
-                onClick={handleSubmit}
+                onClick={handleSignup}
               >
                 Uye Ol
               </button>
             </div>
-          </div>{" "}
+          </div>
         </CustomTabPanel>
       </Box>
     </>

@@ -12,7 +12,7 @@ import PopoverComp from "../popover/PopoverComp";
 const Navbar = () => {
   const count = useSelector((state: RootState) => state.addToCartSlice.length);
   const router = useRouter();
-  const user = localStorage.getItem("token");
+  const user = localStorage?.getItem("token");
 
   const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
   const [menuDisplay, setMenuDisplay] = useState<boolean>(false);

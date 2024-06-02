@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosError, AxiosResponse } from "axios";
+import Swal from "sweetalert2";
 
 const axiosClient = (token: string | null = null): AxiosInstance => {
   const headers = token
@@ -34,9 +35,23 @@ const axiosClient = (token: string | null = null): AxiosInstance => {
       try {
         const { response } = error;
         if (response?.status === 401) {
-          localStorage.removeItem("ACCESS_TOKEN");
+          localStorage.removeItem("token");
         } else if (response?.status === 500) {
-          alert("Something wrong!");
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: response.data?.message,
+            showConfirmButton: false,
+            timer: 3000,
+          });
+        } else if (response?.status === 403) {
+          Swal.fire({
+            position: "top-right",
+            icon: "error",
+            title: response.data?.message,
+            showConfirmButton: false,
+            timer: 3000,
+          });
         }
       } catch (e) {
         console.error(e);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Avatar } from "@mui/material";
+import { Avatar, CircularProgress } from "@mui/material";
 import {
   BsBox,
   BsFillTabletFill,
@@ -16,6 +16,14 @@ interface PropType {
 
 const PopoverComp: React.FC<PropType> = ({ menuDisplay }) => {
   const open = Boolean(menuDisplay);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleLogout = async () => {
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    localStorage.removeItem("token");
+    setLoading(false);
+  };
   return (
     <>
       <Avatar sx={{ width: 24, height: 24 }} />
@@ -63,12 +71,17 @@ const PopoverComp: React.FC<PropType> = ({ menuDisplay }) => {
         </li>
         <li
           className="inline-flex items-center hover:bg-purple-300 hover:text-white p-2"
-          onClick={() => localStorage.removeItem("token")}
+          onClick={handleLogout}
         >
           <span>
             <BsDoorClosed />
           </span>
-          <span className="text-xs ms-2">Cikis Yap</span>
+          <span className="text-xs ms-2">
+            Cikis Yap
+            {loading && (
+              <CircularProgress color="inherit" size={15} className="ms-3" />
+            )}
+          </span>
         </li>
       </div>
     </>

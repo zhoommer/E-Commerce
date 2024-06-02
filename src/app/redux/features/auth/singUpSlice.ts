@@ -1,23 +1,12 @@
-import axiosClient from "@/axiosClient/axiosClient";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axiosClient from "@/axiosClient/axiosClient";
+import { PostData } from "./authSlice";
 
-interface UserType {
-  name: string;
-  surname: string;
-}
-
-export interface InitialStateType {
+interface InitialStateType {
   loading: boolean;
   error: string | undefined;
-  access_token: string | null;
-  refresh_token: string | null;
-  user: UserType | null;
-}
-
-export interface PostData {
-  email: string;
-  gender?: string;
-  passwordHash: string;
+  access_token: string;
+  refresh_token: string;
 }
 
 const initialState: InitialStateType = {
@@ -25,18 +14,14 @@ const initialState: InitialStateType = {
   error: "",
   access_token: "",
   refresh_token: "",
-  user: {
-    name: "",
-    surname: "",
-  },
 };
 
-export const loginFunc = createAsyncThunk(
-  "loginFunc",
+export const registerFunc = createAsyncThunk(
+  "registerFunc",
   async (postData: PostData) => {
     const client = axiosClient();
     const response = await client.post<InitialStateType>(
-      "auth/signin",
+      "auth/signup",
       postData,
       {
         headers: {
@@ -49,29 +34,27 @@ export const loginFunc = createAsyncThunk(
   },
 );
 
-export const authSlice = createSlice({
-  name: "auth",
+export const signupSlice = createSlice({
+  name: "signup",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(loginFunc.pending, (state) => {
+    builder.addCase(registerFunc.pending, (state) => {
       state.loading = true;
       state.error = "";
     });
 
-    builder.addCase(loginFunc.fulfilled, (state, action: any) => {
+    builder.addCase(registerFunc.fulfilled, (state, action: any) => {
       state.access_token = action.payload.access_token;
       state.refresh_token = action.payload.refresh_token;
-      state.user = action.payload.user;
       state.loading = false;
     });
 
-    builder.addCase(loginFunc.rejected, (state, action) => {
+    builder.addCase(registerFunc.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
-      state.user = null;
     });
   },
 });
 
-export default authSlice.reducer;
+export default signupSlice.reducer;
